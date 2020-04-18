@@ -10,6 +10,11 @@ export const constantRoutes = [
     component: () => import('@/views/practice/Index'),
   },
   {
+    path: '/form',
+    name: 'form',
+    component: () => import('@/views/form/Index'),
+  },
+  {
     path: '/exception/404',
     name: 'exception404',
     component: () => import('@/views/exception/404'),
