@@ -1,6 +1,7 @@
 <template>
   <div class="list">
     <Card title="Button" class="item">
+      
       <Button>Default</Button>
       <Button type="primary">Primary</Button>
       <Button type="dashed">Dashed</Button>
@@ -12,6 +13,8 @@
       <Button type="error">Error</Button>
     </Card>
     <Card title="Icon" class="item" style="font-size: 48px;">
+      <Icon type="ios-checkmark" />
+      <Icon type="ios-checkmark"></Icon>
       <Icon type="ios-alarm" />
       <Icon type="ios-american-football" />
       <Icon type="ios-aperture" />

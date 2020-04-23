@@ -1,5 +1,12 @@
 <template>
   <div id="app">
+    <div class="nav-box">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/practice">Practice</router-link> |
+      <router-link to="/form">Form</router-link> |
+      <router-link to="/table">Table</router-link>
+    </div>
+    <hr>
     <router-view />
   </div>
 </template>
@@ -12,3 +19,12 @@ export default {
   }
 }
 </script>
+
+<style lang="less" scoped>
+.nav-box {
+  padding: 20px 0;
+  text-align: center;
+  font-size: 24px;
+}
+</style>
+
