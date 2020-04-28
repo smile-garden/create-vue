@@ -20,6 +20,11 @@ export const constantRoutes = [
     component: () => import('@/views/table/Index'),
   },
   {
+    path: '/map',
+    name: 'map',
+    component: () => import('@/views/map/Index'),
+  },
+  {
     path: '/exception/404',
     name: 'exception404',
     component: () => import('@/views/exception/404'),

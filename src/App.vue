@@ -4,7 +4,8 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/practice">Practice</router-link> |
       <router-link to="/form">Form</router-link> |
-      <router-link to="/table">Table</router-link>
+      <router-link to="/table">Table</router-link> |
+      <router-link to="/map">Map</router-link>
     </div>
     <hr>
     <router-view />
