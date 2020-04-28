@@ -1,13 +1,17 @@
-export default function MP(key) {
+export default function MapLoader () {
   return new Promise((resolve, reject) => {
-    window.init = () => {
-      resolve(AMap);
+    if (window.AMap) {
+      resolve(window.AMap);
+    } else {
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.async = true;
+      script.src = 'http://webapi.amap.com/maps?v=1.4.15&callback=initAMap&key=bc1500732bd552cc3e5ffdb877d74222';
+      script.onerror = reject;
+      document.head.appendChild(script);
+    }
+    window.initAMap = () => {
+      resolve(window.AMap);
     };
-    const script = document.createElement('script');
-    script.charset = 'utf-8';
-    script.type = 'text/javascript';
-    script.src = `//webapi.amap.com/maps?v=1.4.6&key=${key}&callback=init`;
-    script.onerror = reject;
-    document.head.appendChild(script);
   });
 }

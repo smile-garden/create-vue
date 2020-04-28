@@ -1,5 +1,11 @@
 <template>
-  <Table :columns="columns10" :data="data9"></Table>
+  <div>
+    <Table :columns="columns10" :data="data9"></Table>
+    <br>
+    <hr />
+    <br>
+    <Table border :columns="columns5" :data="data5"></Table>
+  </div>
 </template>
 <script>
 import expandRow from "./TableExpand.vue";
@@ -8,18 +14,68 @@ export default {
   components: { expandRow },
   data() {
     return {
+      columns5: [
+        {
+          title: "Date",
+          key: "date",
+          sortable: true
+        },
+        {
+          title: "Name",
+          key: "name"
+        },
+        {
+          title: "Age",
+          key: "age",
+          sortable: true
+        },
+        {
+          title: "Address",
+          key: "address"
+        }
+      ],
+      data5: [
+        {
+          name: "John Brown",
+          age: 18,
+          address: "New York No. 1 Lake Park",
+          date: "2016-10-03"
+        },
+        {
+          name: "Jim Green",
+          age: 24,
+          address: "London No. 1 Lake Park",
+          date: "2016-10-01"
+        },
+        {
+          name: "Joe Black",
+          age: 30,
+          address: "Sydney No. 1 Lake Park",
+          date: "2016-10-02"
+        },
+        {
+          name: "Jon Snow",
+          age: 26,
+          address: "Ottawa No. 2 Lake Park",
+          date: "2016-10-04"
+        }
+      ],
       columns10: [
         {
           type: "expand",
           width: 50,
           render: (h, params) => {
-            console.log(h, 'h');
-            console.log(params, 'params');
-            return h(expandRow, {
-              props: {
-                weiyi: params.row
+            console.log(h, "h");
+            console.log(params, "params");
+            return h(
+              expandRow,
+              {
+                props: {
+                  weiyi: params.row
+                }
               },
-            }, '哈哈哈',);
+              "哈哈哈"
+            );
           }
         },
         {
