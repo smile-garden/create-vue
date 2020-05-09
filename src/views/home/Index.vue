@@ -1,9 +1,7 @@
 <!-- Home -->
 <template>
   <div class='app-inner'>
-    <img :src="imgUrl" alt="logo">
     <h3>首页</h3>
-    <img src="../images/logo.png" alt="">
     <Child aa="aaaaa" sss="sss1111111111111" />
   </div>
 </template>
