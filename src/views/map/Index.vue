@@ -1,6 +1,5 @@
 <template>
   <div class='app-inner'>
-    <div id="container"></div>
     <div class="input-wrap">
       <div class="input-box">
         <input
@@ -8,21 +7,23 @@
           class="input-text"
           placeholder="请输入地址按下enter或点击获取位置"
           v-model="address"
+          @input="inputHandle"
           @keyup.enter="handleOk"
           @focus="showSelect = true"
-          @blur="showSelect = false"
         />
         <div class="input-result__list" v-if="showSelect && resultList.length">
           <div
             class="input-result__item"
             v-for="item in resultList"
-            :key="item.id">
+            :key="item.id"
+            @click="selectedHandle(item.name)">
             {{item.name}}
           </div>
         </div>
       </div>
       <button class="input-btn" @click="handleOk">获取位置</button>
     </div>
+    <div id="container"></div>
     <hr>
     <img class="map-img" :src="mapUrl" alt="map">
   </div>
@@ -53,11 +54,6 @@ export default {
       return url;
     },
   },
-  watch: {
-    address(val) {
-      this.searchAddress(val);
-    },
-  },
   created() {
     console.log(process.env.NODE_ENV);
   },
@@ -80,8 +76,18 @@ export default {
     });
   },
   methods: {
+    inputHandle(e) {
+      console.log(e, '-----');
+      this.searchAddress(e.target.value);
+    },
+    selectedHandle(val) {
+      this.showSelect = false;
+      this.address = val;
+      this.handleOk();
+    },
     searchAddress: debounce(function searchAddress(address) {
       this.autoComplete.search(address, (status, result) => {
+        console.log(result, '-----');
         this.resultList = status === 'complete' ? result.tips : [];
       });
     }, 300),
@@ -108,7 +114,7 @@ export default {
 }
 
 #container {
-  margin: 50px auto 0;
+  margin: 30px auto;
   width: 750px;
   height: 300px;;
 }
@@ -136,6 +142,7 @@ export default {
   &-result {
 
     &__list {
+      padding-bottom: 10px;
       position: absolute;
       top: 30px;
       left: 0;
@@ -145,13 +152,20 @@ export default {
     }
 
     &__item {
+      padding: 0 10px;
       width: 100%;
       line-height: 30px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+
+      &:last-child {
+        border-bottom: 0;
+      }
     }
   }
 }
 
 .map-img {
-  margin: 50px 0;
+  margin: 30px 0;
 }
 </style>
