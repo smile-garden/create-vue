@@ -40,6 +40,16 @@ module.exports = {
             code: 0,
             data: [1, 3, 5,7, 9, 11],
           })
+        }),
+        app.get('/api/detail', function(req, res) {
+          res.json({
+            code: 0,
+            data: {
+              title: '商品标题',
+              des: '商品副标题',
+              content: '山东的等等等等等等等等等等等等',
+            },
+          })
         })
       }
     }
