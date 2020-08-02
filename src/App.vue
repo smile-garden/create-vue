@@ -5,6 +5,7 @@
       <router-link to="/practice">Practice</router-link> |
       <router-link to="/form">Form</router-link> |
       <router-link to="/table">Table</router-link> |
+      <router-link to="/pdf">PDF</router-link> |
       <router-link to="/map">Map</router-link>
     </div>
     <hr>

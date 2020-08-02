@@ -33,5 +33,15 @@ module.exports = {
         /zh-cn/,
       ),
     ],
+    devServer: {
+      before(app) {
+        app.get('/api/goods', function(req, res) {
+          res.json({
+            code: 0,
+            data: [1, 3, 5,7, 9, 11],
+          })
+        })
+      }
+    }
   },
 };
