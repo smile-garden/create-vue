@@ -1,32 +1,6 @@
 <template>
-  <div class="list">
-    <Card title="Button" class="item">
-      
-      <Button>Default</Button>
-      <Button type="primary">Primary</Button>
-      <Button type="dashed">Dashed</Button>
-      <Button type="text">Text</Button>
-      <br><br>
-      <Button type="info">Info</Button>
-      <Button type="success">Success</Button>
-      <Button type="warning">Warning</Button>
-      <Button type="error">Error</Button>
-    </Card>
-    <Card title="Icon" class="item" style="font-size: 48px;">
-      <Icon type="ios-checkmark" />
-      <Icon type="ios-checkmark"></Icon>
-      <Icon type="ios-alarm" />
-      <Icon type="ios-american-football" />
-      <Icon type="ios-aperture" />
-    </Card>
-    <Card title="Tab">
-      <Tabs value="name1">
-        <TabPane label="标签一" name="name1">标签一的内容</TabPane>
-        <TabPane label="标签二" name="name2">标签二的内容</TabPane>
-        <TabPane label="标签三" name="name3">标签三的内容</TabPane>
-      </Tabs>
-    </Card>
-    <Card title="Table">
+  <div style="margin: 0 16px;">
+    <Card title="Table行内编辑">
       <Table :columns="columns" :data="data">
         <template slot-scope="{ row, index }" slot="name">
           <Input type="text" v-model="editName" v-if="editIndex === index" />
@@ -54,11 +28,41 @@
             <Button @click="editIndex = -1">取消</Button>
           </div>
           <div v-else>
-            <Button @click="handleEdit(row, index)">操作</Button>
+            <Button @click="handleEdit(row, index)">编辑</Button>
           </div>
         </template>
       </Table>
     </Card>
+
+    <Button style="margin: 16px 0;" type="primary" @click="show()">新增</Button>
+    <Card title="Modal编辑">
+      <Table :columns="columns2" :data="data">
+        <template slot-scope="{ row, index }" slot="action">
+          <Button @click="show('edit', row, index)">编辑</Button>
+        </template>
+      </Table>
+    </Card>
+
+    <Modal
+      v-model="visible"
+      :title="editType === 'edit' ? '编辑' : '新增'"
+      @on-ok="ok"
+      @on-cancel="cancel">
+      <Form :model="configInfo" label-position="right" :label-width="100">
+        <Form-item label="姓名">
+          <Input v-model="configInfo.name"></Input>
+        </Form-item>
+        <Form-item label="年龄">
+          <Input v-model="configInfo.age"></Input>
+        </Form-item>
+        <Form-item label="出生日期">
+          <Input v-model="configInfo.birthday"></Input>
+        </Form-item>
+        <Form-item label="地址">
+          <Input v-model="configInfo.address"></Input>
+        </Form-item>
+      </Form>
+    </Modal>
   </div>
 </template>
 
@@ -67,48 +71,81 @@ export default {
   name: 'practice',
   data() {
     return {
+      visible: false,
       columns: [
         {
           title: '姓名',
+          key: 'name',
           slot: 'name'
         },
         {
           title: '年龄',
+          key: 'age',
           slot: 'age'
         },
         {
           title: '出生日期',
+          key: 'birthday',
           slot: 'birthday'
         },
         {
           title: '地址',
+          key: 'address',
           slot: 'address'
         },
         {
           title: '操作',
+          key: 'action',
+          slot: 'action'
+        }
+      ],
+      columns2: [
+        {
+          title: '姓名',
+          key: 'name',
+        },
+        {
+          title: '年龄',
+          key: 'age',
+        },
+        {
+          title: '出生日期',
+          key: 'birthday',
+        },
+        {
+          title: '地址',
+          key: 'address',
+        },
+        {
+          title: '操作',
+          key: 'action',
           slot: 'action'
         }
       ],
       data: [
         {
+          id: 1,
           name: '王小明',
           age: 18,
           birthday: '919526400000',
           address: '北京市朝阳区芍药居'
         },
         {
+          id: 2,
           name: '张小刚',
           age: 25,
           birthday: '696096000000',
           address: '北京市海淀区西二旗'
         },
         {
+          id: 3,
           name: '李小红',
           age: 30,
           birthday: '563472000000',
           address: '上海市浦东新区世纪大道'
         },
         {
+          id: 4,
           name: '周小伟',
           age: 26,
           birthday: '687024000000',
@@ -120,10 +157,32 @@ export default {
       editAge: '',  // 第二列输入框
       editBirthday: '',  // 第三列输入框
       editAddress: '',  // 第四列输入框
+
+      editType: 'add',
+      configInfo: {}, // 配置信息
+      curIndex: -1, //当前编辑行索引
     };
   },
   created() {},
   methods: {
+    show(type = 'add', row, index) {
+      this.curIndex = index;
+      this.editType = type;
+      this.configInfo = row || {};
+      this.visible = true;
+    },
+    ok() {
+      const { editType, configInfo, curIndex } = this;
+      if (editType === 'add') {
+        this.data.unshift(configInfo);
+      }
+      if (editType === 'edit') {
+        this.data.splice(curIndex, 1, configInfo);
+      }
+    },
+    cancel() {
+
+    },
     handleEdit (row, index) {
       this.editName = row.name;
       this.editAge = row.age;
@@ -148,10 +207,3 @@ export default {
   },
 };
 </script>
-
-<style lang='less' scoped>
-.item {
-  margin-bottom: 10px;
-}
-
-</style>

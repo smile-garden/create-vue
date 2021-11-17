@@ -1,13 +1,13 @@
 export const constantRoutes = [
   {
     path: '/',
-    name: 'home',
-    component: () => import('@/views/home/Index'),
-  },
-  {
-    path: '/practice',
     name: 'practice',
     component: () => import('@/views/practice/Index'),
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: () => import('@/views/home/Index'),
   },
   {
     path: '/form',
