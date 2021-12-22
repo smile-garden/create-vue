@@ -10,6 +10,11 @@ export const constantRoutes = [
     component: () => import('@/views/home/Index'),
   },
   {
+    path: '/translate',
+    name: 'translate',
+    component: () => import('@/views/translate/Index'),
+  },
+  {
     path: '/form',
     name: 'form',
     component: () => import('@/views/form/Index'),

@@ -6,6 +6,8 @@ import 'view-design/dist/styles/iview.css'; */
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';    // 使用 CSS
 
+import vGoogleTranslate from 'v-google-translate';
+Vue.use(vGoogleTranslate);
 // Vue.use(ViewUI);
 Vue.use(iView);
 
